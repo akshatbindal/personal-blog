@@ -1,0 +1,344 @@
+/* 
+    Minimalist Dark Theme Configuration
+*/
+:root {
+    --bg-color: #000000;
+    --text-color: #FFFFFF;
+    --text-muted: #888888;
+
+    /* Fluid typography bases */
+    --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+    --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+    --step-0: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+    --step-1: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+    --step-2: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+    --step-3: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+    --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+    --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
+    --step-6: clamp(3.3592rem, 2.8691rem + 2.4507vw, 4.7684rem);
+    --step-7: clamp(4.0311rem, 3.3601rem + 3.3551vw, 5.9605rem);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Hide scrollbar for cleaner look, optional */
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Apply Google Sans Flex */
+    font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* Default variable settings for body */
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 18;
+    font-size: var(--step-0);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll from animations */
+    cursor: none;
+    /* Hide default cursor */
+    /* Add smooth transitions for the background and text color when swapping themes */
+    transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+body[data-theme="light"] {
+    --bg-color: #F8F9FA;
+    /* Off-white for less harsh contrast, or pure #FFFFFF */
+    --text-color: #000000;
+}
+
+/* Ensure links and buttons also hide the default cursor */
+a,
+button,
+input,
+textarea {
+    cursor: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5vw;
+}
+
+/* Layout helpers */
+.section-full {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-padded {
+    min-height: 60vh;
+    padding: 15vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Typography Classes */
+.headline {
+    font-size: var(--step-7);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "wght" 800, "wdth" 100, "opsz" 144;
+    margin-bottom: 2rem;
+}
+
+.subhead {
+    font-size: var(--step-3);
+    color: var(--text-muted);
+    font-variation-settings: "wght" 500, "wdth" 100, "opsz" 36;
+    letter-spacing: -0.02em;
+}
+
+.section-title {
+    font-size: var(--step-4);
+    font-variation-settings: "wght" 700, "wdth" 100, "opsz" 72;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    /* Animated in via GSAP */
+    height: 2px;
+    background-color: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.text-body {
+    font-size: var(--step-2);
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 24;
+    color: var(--text-muted);
+    max-width: 800px;
+}
+
+.text-body-small {
+    font-size: var(--step-0);
+    color: var(--text-muted);
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 18;
+}
+
+.item-title {
+    font-size: var(--step-1);
+    font-variation-settings: "wght" 600, "wdth" 100, "opsz" 24;
+    margin-bottom: 0.25rem;
+}
+
+.item-meta {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 14;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.experience-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    /* ensure we don't apply the extra margin-bottom if it's the top row */
+    margin-bottom: 0.25rem;
+}
+
+.experience-header-row .item-title {
+    margin-bottom: 0;
+    /* Override default */
+}
+
+.item-meta-left,
+.item-meta-right {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 14;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.item-meta-right {
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+/* Lists and Items */
+ul.skills-list {
+    list-style: none;
+}
+
+.list-item {
+    font-size: var(--step-1);
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 24;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--text-muted);
+    /* use text-muted to ensure visibility in both themes */
+    padding-bottom: 1rem;
+    transition: border-color 0.8s ease;
+    /* smooth transition when theme changes */
+}
+
+.experience-item,
+.education-item,
+.project-item {
+    margin-bottom: 3rem;
+}
+
+/* Links */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.social-link {
+    font-size: var(--step-3);
+    color: var(--text-color);
+    text-decoration: none;
+    font-variation-settings: "wght" 400, "wdth" 100, "opsz" 48;
+    transition: opacity 0.3s ease, font-variation-settings 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: fit-content;
+}
+
+.social-icon {
+    width: 0.8em;
+    height: 0.8em;
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-link:hover {
+    font-variation-settings: "wght" 800, "wdth" 110, "opsz" 48;
+    color: var(--text-color);
+}
+
+.social-link:hover .social-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.social-links-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.social-icon-link {
+    color: var(--text-color);
+    text-decoration: none;
+    display: inline-flex;
+}
+
+.large-social-icon {
+    width: clamp(2.5rem, 5vw, 3.5rem);
+    height: clamp(2.5rem, 5vw, 3.5rem);
+    opacity: 0.8;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+.social-icon-link:hover .large-social-icon {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.15);
+    /* Make the svg stroke bolder */
+    stroke-width: 2.5px !important;
+}
+
+/* Initial state for GSAP animations */
+.reveal-text {
+    opacity: 0;
+    /* Removed transform here, letting GSAP handle it fully to avoid flashes */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+/* Helper for split text lines */
+.line-wrapper {
+    overflow: hidden;
+    padding-bottom: 0.2em;
+    /* prevent descender cutoff */
+    margin-bottom: -0.2em;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    /* This creates the transparent inversion effect over text seen on design.google */
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    /* Start centered on mouse */
+    /* Will be animated by GSAP, keeping transitions for scale */
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Hover state for links */
+.custom-cursor.hovered {
+    width: 60px;
+    height: 60px;
+}
+
+/* We will animate font-variation-settings 'wght' via JS */
+.project-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: flex-start;
+    /* Aligns the icon to the top right */
+    gap: 0.15rem;
+    /* Tight gap for superscript style */
+    transition: font-variation-settings 0.3s ease, color 0.3s ease;
+}
+
+.course-link {
+    font-size: var(--step-3);
+    /* Restore the previous large font size */
+}
+
+.outbound-icon {
+    width: 0.45em;
+    /* Extremely minimalist smaller sizing relative to font */
+    height: 0.45em;
+    margin-top: 0.15em;
+    /* Nudge slightly down from the absolute top ceiling */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.6;
+}
+
+/* On hover of the title link, make the text bolder and shoot the arrow slightly up and right */
+.project-link:hover {
+    font-variation-settings: "wght" 800, "wdth" 110, "opsz" 24;
+}
+
+.project-link:hover .outbound-icon {
+    opacity: 1;
+    transform: translate(2px, -2px);
+}
