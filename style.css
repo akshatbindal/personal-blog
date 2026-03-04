@@ -288,7 +288,7 @@ ul.skills-list {
     left: 0;
     width: 24px;
     height: 24px;
-    background-color: var(--text-color);
+    background-color: white; /* Must be white for difference blending to invert correctly against black and white backgrounds */
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
