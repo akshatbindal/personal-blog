@@ -4,7 +4,7 @@
 :root {
     --bg-color: #000000;
     --text-color: #FFFFFF;
-    --text-muted: #888888;
+    --text-muted: var(--text-color);
 
     /* Fluid typography bases */
     --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
@@ -55,6 +55,7 @@ body[data-theme="light"] {
     --bg-color: #F8F9FA;
     /* Off-white for less harsh contrast, or pure #FFFFFF */
     --text-color: #000000;
+    --text-muted: var(--text-color);
 }
 
 /* Ensure links and buttons also hide the default cursor */
@@ -94,6 +95,9 @@ textarea {
     letter-spacing: -0.04em;
     font-variation-settings: "wght" 800, "wdth" 100, "opsz" 144;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--text-muted);
+    border-bottom-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
 }
 
 .subhead {
@@ -110,18 +114,8 @@ textarea {
     margin-bottom: 3rem;
     position: relative;
     padding-bottom: 1rem;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    /* Animated in via GSAP */
-    height: 2px;
-    background-color: var(--text-color);
-    transition: width 0.3s ease;
+    border-bottom: 1px solid var(--text-muted);
+    border-bottom-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
 }
 
 .text-body {
@@ -141,6 +135,9 @@ textarea {
     font-size: var(--step-1);
     font-variation-settings: "wght" 600, "wdth" 100, "opsz" 24;
     margin-bottom: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--text-muted);
+    border-bottom-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
 }
 
 .item-meta {
@@ -266,20 +263,7 @@ ul.skills-list {
     stroke-width: 2.5px !important;
 }
 
-/* Initial state for GSAP animations */
-.reveal-text {
-    opacity: 0;
-    /* Removed transform here, letting GSAP handle it fully to avoid flashes */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
 
-/* Helper for split text lines */
-.line-wrapper {
-    overflow: hidden;
-    padding-bottom: 0.2em;
-    /* prevent descender cutoff */
-    margin-bottom: -0.2em;
-}
 
 /* Custom Cursor */
 .custom-cursor {

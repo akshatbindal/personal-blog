@@ -2,89 +2,9 @@
 // Initialize GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// Helper function to wrap text nodes in lines for that "reveal up" masking effect
-// We do a simple split by word/line assuming simple structures for a minimalist site.
-function setupSplits() {
-    const revealElements = document.querySelectorAll('.reveal-text');
 
-    // We'll use a simple CSS transform approach since GSAP SplitText is a premium plugin
-    // Instead of SplitText, we'll animate the characters or the whole block with variable font axes.
 
-    revealElements.forEach((elem) => {
-        // Initial state is already set in CSS (opacity 0)
 
-        // Let's create a beautiful typography-driven animation
-        // We will animate opacity, y-position, and the font-variation-settings
-
-        // Read inherent variation settings or default
-        let targetWght = 400;
-        let startWght = 100;
-        let startOp = 0;
-        let startY = 40;
-
-        if (elem.classList.contains('headline')) {
-            targetWght = 800; // Bold target
-            startWght = 200;  // Thin start
-            startY = 80;
-        } else if (elem.classList.contains('section-title')) {
-            targetWght = 700;
-            startWght = 300;
-            startY = 60;
-        } else if (elem.classList.contains('item-title')) {
-            targetWght = 600;
-        }
-
-        // Animate!
-        gsap.fromTo(elem,
-            {
-                opacity: startOp,
-                y: startY,
-                fontVariationSettings: `"wght" ${startWght}, "wdth" 100`
-            },
-            {
-                opacity: 1,
-                y: 0,
-                fontVariationSettings: `"wght" ${targetWght}, "wdth" 100`,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: elem,
-                    start: "top 85%", // Trigger when element is 85% down the viewport
-                    toggleActions: "play none none reverse", // Reverses when scrolling back up!
-                }
-            }
-        );
-    });
-
-    // Animate the line under section titles
-    const sectionTitles = document.querySelectorAll('.section-title');
-    sectionTitles.forEach(title => {
-        gsap.to(title, {
-            scrollTrigger: {
-                trigger: title,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            duration: 1.2,
-            ease: "power3.out",
-            "--pseudo-width": "100%", // We'll manage this via a CSS variable trick or simple inline style
-        });
-
-        // To animate the ::after pseudo-element width via a CSS variable
-        title.style.setProperty('--line-width', '0%');
-        gsap.to(title, {
-            scrollTrigger: {
-                trigger: title,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            "--line-width": "100%",
-            duration: 1.2,
-            ease: "power2.out",
-            delay: 0.2 // Slightly after text starts revealing
-        });
-    });
-}
 
 // Setup custom cursor
 function setupCursor() {
@@ -153,21 +73,12 @@ function setupThemeSwitcher() {
     }
 }
 
-// Update CSS to use the CSS variable for the underline width
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-    .section-title::after {
-        width: var(--line-width, 0%);
-    }
-`;
-document.head.appendChild(styleSheet);
 
 
 // Run when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
     // Small delay to ensure styles are parsed
     setTimeout(() => {
-        setupSplits();
         setupCursor();
         setupThemeSwitcher();
     }, 100);
